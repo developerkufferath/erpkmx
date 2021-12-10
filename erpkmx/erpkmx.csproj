@@ -16,7 +16,6 @@
     <None Remove="Model\Sales\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="Model\Customer\" />
     <Folder Include="Pages\Customer\" />
     <Folder Include="Model\Sales\" />

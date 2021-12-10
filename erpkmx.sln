@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.810.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "erpkmx", "erpkmx\erpkmx.csproj", "{B0034EA2-93FE-4857-93CA-10AF26F360A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "erpkmx", "erpkmx\erpkmx.csproj", "{B0034EA2-93FE-4857-93CA-10AF26F360A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{CA653F39-DB3C-4521-B4AA-1DED19BA1B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLibrary", "DataLibrary\DataLibrary.csproj", "{CA653F39-DB3C-4521-B4AA-1DED19BA1B00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
