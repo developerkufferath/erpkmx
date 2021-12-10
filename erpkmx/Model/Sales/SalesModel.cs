@@ -6,5 +6,7 @@ namespace erpkmx.Model.Sales
         public int Id { get; set; }
         public int Price { get; set; }
         public string Type { get; set; }
+        public string Departament { get; set; }
+        public bool Finish { get; set; }
     }
 }
