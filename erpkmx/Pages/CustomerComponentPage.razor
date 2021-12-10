@@ -1,0 +1,131 @@
+﻿@page "/customer/list"
+
+@using DataLibrary
+@using Model.Customer
+@inject IDataAccess _data
+@inject IConfiguration _config
+
+<div class="row">
+    <div class="w-50 mx-auto">
+        <EditForm Model="oCustomer">
+            <div class="form-group">
+                <label>Full Name</label>
+                <InputText @bind-Value="oCustomer.name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <InputText @bind-Value="oCustomer.address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Number Phone</label>
+                <InputText @bind-Value="oCustomer.phone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-info btn-block" @onclick="save">
+                    Save
+                </button>
+            </div>
+            <div class="form-group">
+                @message
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@if (customer == null)
+{
+    <div class="text-center h3"> Loading data </div>
+}
+else
+{
+    <div class="row">
+        <div class="form-group w-50 mx-auto">
+            <table class="table table-hover ">
+                <thead class="table-dark">
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Address</td>
+                        <td>Phone</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in customer)
+                    {
+                        <tr>
+                            <td>@c.id</td>
+                            <td>@c.name</td>
+                            <td>@c.address</td>
+                            <td>@c.phone</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onclick="openModal()">
+                                    <span class="oi oi-pencil"></span>
+                                </button>
+                                <button class="btn btn-sm btn-danger" @onclick="() => deleteCustomer(c.id)">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="modalTest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    List<CustomerModel> customer;
+    CustomerModel oCustomer = new CustomerModel();
+    string message;
+    private int _idCustomerEvent { get; set; }
+
+    private async Task save()
+    {
+        string sql = "insert into customer (name, address, phone) values (@name, @address, @phone)";
+        var param = new { name = oCustomer.name, oCustomer.address, oCustomer.phone };
+        await _data.SaveData(sql, param, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+        message = "Add " + oCustomer.name;
+
+        oCustomer.name = "";
+        oCustomer.address = "";
+        oCustomer.phone = "";
+    }
+
+    private async void deleteCustomer(int idCustomer)
+    {
+        string sql = "delete from customer where id = @id";
+        var param = new { id = idCustomer };
+        await _data.SaveData(sql, param, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "select * from customer";
+        customer = await _data.LoadData<CustomerModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+    }
+
+}
