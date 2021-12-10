@@ -14,10 +14,12 @@
     <None Remove="Model\Customer\" />
     <None Remove="Pages\Customer\" />
     <None Remove="Model\Sales\" />
+    <None Remove="Pages\Warehouse\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\Customer\" />
     <Folder Include="Pages\Customer\" />
     <Folder Include="Model\Sales\" />
+    <Folder Include="Pages\Warehouse\" />
   </ItemGroup>
 </Project>
